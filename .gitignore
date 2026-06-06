@@ -1,0 +1,25 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+
+# Live client/company work product. Keep real filings, receipts, and private intake out of public repos.
+projects/
+private/
+downloads/
+**/official-*-downloads/
+**/company-records/
+**/cdtfa/
+**/ftb/
+**/edd-payroll/
+**/insurance/
+**/banking/
+**/*receipt*.pdf
+**/*confirmation*.pdf
+**/*screenshot*.png
+
+# Local agent/editor state
+.env
+.env.*
+.codex/
+.claude/
+.agents/tmp/

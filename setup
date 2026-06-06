@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "$0")" && pwd)"
+HOST="${1:-codex}"
+
+install_skill() {
+  local label="$1"
+  local target="$2"
+  mkdir -p "$(dirname "$target")"
+  ln -sfn "$ROOT" "$target"
+  echo "Installed $label skill: $target -> $ROOT"
+}
+
+case "$HOST" in
+  codex|--codex)
+    install_skill "Codex" "${CODEX_SKILLS_DIR:-$HOME/.agents/skills}/form-restaurant-llc"
+    ;;
+  claude|--claude)
+    install_skill "Claude Code" "${CLAUDE_SKILLS_DIR:-$HOME/.claude/skills}/form-restaurant-llc"
+    ;;
+  openclaw|--openclaw)
+    install_skill "OpenClaw" "${OPENCLAW_SKILLS_DIR:-$HOME/.openclaw/skills}/form-restaurant-llc"
+    ;;
+  hermes|--hermes)
+    install_skill "Hermes" "${HERMES_SKILLS_DIR:-$HOME/.hermes/skills}/form-restaurant-llc"
+    ;;
+  all|--all)
+    install_skill "Codex" "${CODEX_SKILLS_DIR:-$HOME/.agents/skills}/form-restaurant-llc"
+    install_skill "Claude Code" "${CLAUDE_SKILLS_DIR:-$HOME/.claude/skills}/form-restaurant-llc"
+    install_skill "OpenClaw" "${OPENCLAW_SKILLS_DIR:-$HOME/.openclaw/skills}/form-restaurant-llc"
+    install_skill "Hermes" "${HERMES_SKILLS_DIR:-$HOME/.hermes/skills}/form-restaurant-llc"
+    ;;
+  *)
+    echo "Usage: ./setup [codex|claude|openclaw|hermes|all]" >&2
+    exit 2
+    ;;
+esac
+
+echo "Keep live company packages out of git: projects/ is ignored by default."

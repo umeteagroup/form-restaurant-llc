@@ -1,0 +1,80 @@
+{
+  "company": {
+    "legal_name": "",
+    "alternate_names": ["", ""],
+    "state": "California",
+    "entity_type": "LLC",
+    "management": "manager-managed",
+    "business_purpose": "Restaurant and food service operations",
+    "principal_office_address": "",
+    "mailing_address": "",
+    "registered_agent_name": "",
+    "registered_agent_address": "",
+    "desired_effective_date": "",
+    "tax_classification_preference": "default partnership or disregarded entity; CPA to confirm"
+  },
+  "brand": {
+    "public_brand_name": "",
+    "needs_dba": "unknown",
+    "website": "",
+    "trademarks_or_ip_notes": ""
+  },
+  "owners": [
+    {
+      "name": "",
+      "role": "member",
+      "email": "",
+      "phone": "",
+      "address": "",
+      "ownership_percent": "",
+      "capital_contribution_cash": "",
+      "capital_contribution_non_cash": "",
+      "manager_or_authorized_signer": false
+    }
+  ],
+  "locations": [
+    {
+      "store_name": "",
+      "address": "",
+      "city": "",
+      "county": "",
+      "opening_target_date": "",
+      "serves_alcohol": false,
+      "has_employees": true,
+      "landlord_or_property_manager": "",
+      "notes": ""
+    }
+  ],
+  "operations": {
+    "sells_taxable_food_or_beverage": true,
+    "delivery_platforms": [],
+    "catering": false,
+    "food_truck_or_mobile": false,
+    "commissary_or_central_kitchen": false,
+    "expected_employees_first_year": "",
+    "payroll_provider": "",
+    "insurance_broker": "",
+    "bookkeeper_or_cpa": "",
+    "attorney": ""
+  },
+  "execution": {
+    "prepare_ca_sos_llc_1": true,
+    "prepare_ca_sos_llc_12": true,
+    "prepare_irs_ein": true,
+    "prepare_ftb_3522": true,
+    "prepare_cdtfa_sellers_permit": true,
+    "prepare_city_business_license": true,
+    "prepare_health_permit": true,
+    "prepare_abc_license_if_alcohol": true,
+    "prepare_payroll_if_employees": true,
+    "prepare_bank_account_package": true
+  },
+  "filing_roles": {
+    "organizer_filer_name": "",
+    "manager_authorized_signer_name": "",
+    "ein_responsible_party_name": "",
+    "authority_confirmation": "",
+    "registered_agent_consent": ""
+  },
+  "notes": ""
+}

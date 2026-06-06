@@ -1,0 +1,972 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Restaurant LLC Intake</title>
+  <style>
+    :root {
+      --bg: #f6f5f1;
+      --panel: #ffffff;
+      --ink: #20242a;
+      --muted: #636b74;
+      --line: #d7dbdf;
+      --strong: #145c63;
+      --strong-dark: #0d464c;
+      --accent: #8b4e2f;
+      --soft: #e7f0ef;
+      --warn: #fff3d8;
+      --warn-line: #e0b45e;
+      --error: #9d2d2d;
+      --radius: 8px;
+      --shadow: 0 14px 35px rgba(22, 28, 36, 0.10);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--bg);
+      min-width: 320px;
+    }
+
+    header {
+      background: #12343a;
+      color: #fff;
+      padding: 28px max(22px, calc((100vw - 1180px) / 2)) 24px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+      line-height: 1.15;
+      letter-spacing: 0;
+    }
+
+    header p {
+      margin: 8px 0 0;
+      max-width: 820px;
+      color: #dce8e7;
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    main {
+      width: min(1180px, calc(100vw - 32px));
+      margin: 22px auto 48px;
+      display: grid;
+      grid-template-columns: 250px minmax(0, 1fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    aside {
+      position: sticky;
+      top: 16px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .progress {
+      padding: 16px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .progress strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 13px;
+    }
+
+    .meter {
+      height: 9px;
+      border-radius: 999px;
+      background: #e6e8ea;
+      overflow: hidden;
+    }
+
+    .meter span {
+      display: block;
+      width: 0;
+      height: 100%;
+      background: var(--strong);
+      transition: width 180ms ease;
+    }
+
+    nav {
+      display: grid;
+    }
+
+    nav button {
+      appearance: none;
+      border: 0;
+      border-bottom: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      text-align: left;
+      padding: 13px 16px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    nav button:hover,
+    nav button[aria-current="step"] {
+      background: var(--soft);
+      color: var(--strong-dark);
+    }
+
+    .workspace {
+      min-width: 0;
+    }
+
+    .notice {
+      background: var(--warn);
+      border: 1px solid var(--warn-line);
+      border-radius: var(--radius);
+      padding: 12px 14px;
+      color: #50340d;
+      font-size: 14px;
+      line-height: 1.45;
+      margin-bottom: 14px;
+    }
+
+    form {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    section.step {
+      display: none;
+      padding: 22px;
+    }
+
+    section.step.active {
+      display: block;
+    }
+
+    h2 {
+      margin: 0 0 6px;
+      font-size: 22px;
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+
+    .section-help {
+      margin: 0 0 20px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+      max-width: 850px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 15px 16px;
+    }
+
+    .grid .wide {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      display: grid;
+      gap: 6px;
+      font-size: 13px;
+      color: #394047;
+      font-weight: 650;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      min-height: 42px;
+      border: 1px solid #c7ccd1;
+      border-radius: 7px;
+      background: #fff;
+      color: var(--ink);
+      padding: 10px 11px;
+      font: inherit;
+      font-size: 14px;
+    }
+
+    textarea {
+      min-height: 92px;
+      resize: vertical;
+      line-height: 1.45;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus,
+    button:focus-visible {
+      outline: 3px solid rgba(20, 92, 99, 0.24);
+      outline-offset: 2px;
+    }
+
+    .repeat-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .item {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 15px;
+      background: #fafafa;
+    }
+
+    .item-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .item-head strong {
+      font-size: 14px;
+    }
+
+    .switch-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 4px;
+    }
+
+    .check {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      min-height: 42px;
+      border: 1px solid #c7ccd1;
+      border-radius: 7px;
+      padding: 9px 10px;
+      background: #fff;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .check input {
+      width: 18px;
+      min-height: 18px;
+      accent-color: var(--strong);
+    }
+
+    .actions,
+    .footer-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .footer-actions {
+      justify-content: space-between;
+      padding: 16px 22px;
+      border-top: 1px solid var(--line);
+      background: #fbfbfa;
+    }
+
+    .left-actions,
+    .right-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    button.primary,
+    button.secondary,
+    button.ghost,
+    .file-button {
+      min-height: 40px;
+      border-radius: 7px;
+      padding: 9px 13px;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid transparent;
+      white-space: nowrap;
+    }
+
+    button.primary {
+      background: var(--strong);
+      color: #fff;
+    }
+
+    button.primary:hover {
+      background: var(--strong-dark);
+    }
+
+    button.secondary,
+    .file-button {
+      background: #fff;
+      color: var(--strong-dark);
+      border-color: #a9c4c4;
+    }
+
+    button.ghost {
+      background: transparent;
+      color: #45505a;
+      border-color: var(--line);
+    }
+
+    button.danger {
+      color: var(--error);
+      border-color: #e3b6b6;
+      background: #fff;
+    }
+
+    .file-button input {
+      display: none;
+    }
+
+    .summary {
+      display: grid;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .summary div {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      padding: 11px 12px;
+      background: #fafafa;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .missing {
+      color: var(--error);
+      font-size: 13px;
+      line-height: 1.45;
+      margin-top: 12px;
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 840px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+
+      aside {
+        position: static;
+      }
+
+      nav {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .grid,
+      .switch-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 520px) {
+      header {
+        padding-top: 22px;
+      }
+
+      header h1 {
+        font-size: 23px;
+      }
+
+      main {
+        width: min(100vw - 20px, 1180px);
+        margin-top: 12px;
+      }
+
+      nav {
+        grid-template-columns: 1fr;
+      }
+
+      section.step,
+      .footer-actions {
+        padding: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Restaurant LLC Intake</h1>
+    <p>Collect the non-sensitive details needed to prepare a California restaurant LLC formation package. Nothing is uploaded; the form exports a local JSON file for the package generator.</p>
+  </header>
+
+  <main>
+    <aside aria-label="Form progress">
+      <div class="progress">
+        <strong><span id="progressText">Step 1 of 7</span></strong>
+        <div class="meter" aria-hidden="true"><span id="progressBar"></span></div>
+      </div>
+      <nav id="stepNav"></nav>
+    </aside>
+
+    <div class="workspace">
+      <div class="notice">Do not enter SSNs, passport numbers, full dates of birth, bank passwords, or payment card details. Attorney and CPA review are recommended before signing or filing.</div>
+
+      <form id="intakeForm">
+        <section class="step active" data-step="0">
+          <h2>Company</h2>
+          <p class="section-help">Use the legal LLC name if known. Alternate names help if the first choice is unavailable.</p>
+          <div class="grid">
+            <label>Legal LLC name
+              <input name="company.legal_name" autocomplete="organization" placeholder="Example Hospitality LLC" required>
+            </label>
+            <label>State
+              <input name="company.state" value="California">
+            </label>
+            <label>Management
+              <select name="company.management">
+                <option value="manager-managed">manager-managed</option>
+                <option value="member-managed">member-managed</option>
+                <option value="unknown">unknown</option>
+              </select>
+            </label>
+            <label>Desired effective date
+              <input name="company.desired_effective_date" placeholder="ASAP or YYYY-MM-DD">
+            </label>
+            <label>Principal office address
+              <input name="company.principal_office_address" autocomplete="street-address">
+            </label>
+            <label>Mailing address
+              <input name="company.mailing_address" autocomplete="street-address">
+            </label>
+            <label>Registered agent name
+              <input name="company.registered_agent_name">
+            </label>
+            <label>Registered agent address
+              <input name="company.registered_agent_address">
+            </label>
+            <label class="wide">Business purpose
+              <textarea name="company.business_purpose">Restaurant and food service operations</textarea>
+            </label>
+            <label class="wide">Alternate names
+              <input name="company.alternate_names" placeholder="Name 2, Name 3">
+            </label>
+          </div>
+        </section>
+
+        <section class="step" data-step="1">
+          <h2>Brand</h2>
+          <p class="section-help">If the public restaurant name differs from the LLC legal name, the company may need a DBA or fictitious business name filing.</p>
+          <div class="grid">
+            <label>Public brand name
+              <input name="brand.public_brand_name" placeholder="Restaurant brand or store name">
+            </label>
+            <label>DBA needed
+              <select name="brand.needs_dba">
+                <option value="unknown">unknown</option>
+                <option value="yes">yes</option>
+                <option value="no">no</option>
+              </select>
+            </label>
+            <label>Website
+              <input name="brand.website" placeholder="https://">
+            </label>
+            <label class="wide">Trademark, IP, or licensing notes
+              <textarea name="brand.trademarks_or_ip_notes"></textarea>
+            </label>
+          </div>
+        </section>
+
+        <section class="step" data-step="2">
+          <h2>Members</h2>
+          <p class="section-help">List owners, their expected ownership percentages, and who can sign for the company.</p>
+          <div id="ownersList" class="repeat-list"></div>
+          <div class="actions" style="margin-top: 14px;">
+            <button type="button" class="secondary" id="addOwner">Add member</button>
+          </div>
+        </section>
+
+        <section class="step" data-step="3">
+          <h2>Locations</h2>
+          <p class="section-help">Add confirmed stores or target locations. City and county drive permit requirements.</p>
+          <div id="locationsList" class="repeat-list"></div>
+          <div class="actions" style="margin-top: 14px;">
+            <button type="button" class="secondary" id="addLocation">Add location</button>
+          </div>
+        </section>
+
+        <section class="step" data-step="4">
+          <h2>Operations</h2>
+          <p class="section-help">These answers shape tax, seller's permit, payroll, insurance, and restaurant permit checklists.</p>
+          <div class="switch-row">
+            <label class="check"><input type="checkbox" name="operations.sells_taxable_food_or_beverage" checked> Taxable food or beverage sales</label>
+            <label class="check"><input type="checkbox" name="operations.catering"> Catering</label>
+            <label class="check"><input type="checkbox" name="operations.food_truck_or_mobile"> Food truck or mobile</label>
+            <label class="check"><input type="checkbox" name="operations.commissary_or_central_kitchen"> Commissary or central kitchen</label>
+          </div>
+          <div class="grid" style="margin-top: 16px;">
+            <label>Expected employees in first year
+              <input name="operations.expected_employees_first_year" inputmode="numeric">
+            </label>
+            <label>Delivery platforms
+              <input name="operations.delivery_platforms" placeholder="DoorDash, Uber Eats, Grubhub">
+            </label>
+            <label>Payroll provider
+              <input name="operations.payroll_provider">
+            </label>
+            <label>Insurance broker
+              <input name="operations.insurance_broker">
+            </label>
+            <label>Bookkeeper or CPA
+              <input name="operations.bookkeeper_or_cpa">
+            </label>
+            <label>Attorney
+              <input name="operations.attorney">
+            </label>
+          </div>
+        </section>
+
+        <section class="step" data-step="5">
+          <h2>Execution Scope</h2>
+          <p class="section-help">Choose which execution items should be included in the generated formation package.</p>
+          <div class="switch-row">
+            <label class="check"><input type="checkbox" name="execution.prepare_ca_sos_llc_1" checked> CA SOS LLC-1</label>
+            <label class="check"><input type="checkbox" name="execution.prepare_ca_sos_llc_12" checked> CA SOS LLC-12</label>
+            <label class="check"><input type="checkbox" name="execution.prepare_irs_ein" checked> IRS EIN</label>
+            <label class="check"><input type="checkbox" name="execution.prepare_ftb_3522" checked> FTB 3522</label>
+            <label class="check"><input type="checkbox" name="execution.prepare_cdtfa_sellers_permit" checked> CDTFA seller's permit</label>
+            <label class="check"><input type="checkbox" name="execution.prepare_city_business_license" checked> City business license</label>
+            <label class="check"><input type="checkbox" name="execution.prepare_health_permit" checked> Health permit</label>
+            <label class="check"><input type="checkbox" name="execution.prepare_abc_license_if_alcohol" checked> ABC license if alcohol</label>
+            <label class="check"><input type="checkbox" name="execution.prepare_payroll_if_employees" checked> Payroll if employees</label>
+            <label class="check"><input type="checkbox" name="execution.prepare_bank_account_package" checked> Bank package</label>
+          </div>
+          <div class="grid" style="margin-top: 16px;">
+            <label class="wide">Tax classification preference
+              <input name="company.tax_classification_preference" value="default partnership or disregarded entity; CPA to confirm">
+            </label>
+            <label class="wide">Additional notes
+              <textarea name="notes"></textarea>
+            </label>
+          </div>
+        </section>
+
+        <section class="step" data-step="6">
+          <h2>Review and Export</h2>
+          <p class="section-help">Export the JSON file and run the package generator. You can also import a prior JSON file to keep editing.</p>
+          <div class="actions">
+            <button type="button" class="primary" id="exportJson" data-testid="export-json">Export intake JSON</button>
+            <label class="file-button">Import JSON
+              <input type="file" id="importJson" accept="application/json,.json">
+            </label>
+            <button type="button" class="ghost" id="copyJson">Copy JSON</button>
+            <button type="button" class="ghost danger" id="clearDraft">Clear local draft</button>
+          </div>
+          <div id="missingBox" class="missing"></div>
+          <div class="summary" id="summaryBox"></div>
+          <p class="muted">Suggested command after export: <code>form-restaurant-llc/scripts/generate_package.py --generate pilot-company-intake.json --out pilot-formation-package</code></p>
+        </section>
+
+        <div class="footer-actions">
+          <div class="left-actions">
+            <button type="button" class="ghost" id="prevStep">Back</button>
+          </div>
+          <div class="right-actions">
+            <button type="button" class="secondary" id="saveDraft">Save draft</button>
+            <button type="button" class="primary" id="nextStep">Next</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <template id="ownerTemplate">
+    <div class="item owner-item">
+      <div class="item-head">
+        <strong>Member</strong>
+        <button type="button" class="ghost danger remove-item">Remove</button>
+      </div>
+      <div class="grid">
+        <label>Name <input data-field="name"></label>
+        <label>Role <input data-field="role" value="member"></label>
+        <label>Email <input data-field="email" type="email"></label>
+        <label>Phone <input data-field="phone"></label>
+        <label>Ownership percent <input data-field="ownership_percent" inputmode="decimal" placeholder="50"></label>
+        <label>Cash contribution <input data-field="capital_contribution_cash" placeholder="$"></label>
+        <label class="wide">Address <input data-field="address"></label>
+        <label class="wide">Non-cash contribution <input data-field="capital_contribution_non_cash" placeholder="Equipment, IP, services, or TBD"></label>
+        <label class="check wide"><input type="checkbox" data-field="manager_or_authorized_signer"> Manager or authorized signer</label>
+      </div>
+    </div>
+  </template>
+
+  <template id="locationTemplate">
+    <div class="item location-item">
+      <div class="item-head">
+        <strong>Location</strong>
+        <button type="button" class="ghost danger remove-item">Remove</button>
+      </div>
+      <div class="grid">
+        <label>Store name <input data-field="store_name"></label>
+        <label>Opening target date <input data-field="opening_target_date" placeholder="ASAP or YYYY-MM-DD"></label>
+        <label class="wide">Address <input data-field="address"></label>
+        <label>City <input data-field="city"></label>
+        <label>County <input data-field="county"></label>
+        <label>Landlord or property manager <input data-field="landlord_or_property_manager"></label>
+        <label class="check"><input type="checkbox" data-field="serves_alcohol"> Serves alcohol</label>
+        <label class="check"><input type="checkbox" data-field="has_employees" checked> Has employees</label>
+        <label class="wide">Notes <textarea data-field="notes"></textarea></label>
+      </div>
+    </div>
+  </template>
+
+  <script>
+    const storageKey = "restaurant-llc-intake-draft-v1";
+    const steps = ["Company", "Brand", "Members", "Locations", "Operations", "Execution", "Export"];
+    let currentStep = 0;
+
+    const defaultData = {
+      company: {
+        legal_name: "",
+        alternate_names: ["", ""],
+        state: "California",
+        entity_type: "LLC",
+        management: "manager-managed",
+        business_purpose: "Restaurant and food service operations",
+        principal_office_address: "",
+        mailing_address: "",
+        registered_agent_name: "",
+        registered_agent_address: "",
+        desired_effective_date: "",
+        tax_classification_preference: "default partnership or disregarded entity; CPA to confirm"
+      },
+      brand: {
+        public_brand_name: "",
+        needs_dba: "unknown",
+        website: "",
+        trademarks_or_ip_notes: ""
+      },
+      owners: [{
+        name: "",
+        role: "member",
+        email: "",
+        phone: "",
+        address: "",
+        ownership_percent: "",
+        capital_contribution_cash: "",
+        capital_contribution_non_cash: "",
+        manager_or_authorized_signer: false
+      }],
+      locations: [{
+        store_name: "",
+        address: "",
+        city: "",
+        county: "",
+        opening_target_date: "",
+        serves_alcohol: false,
+        has_employees: true,
+        landlord_or_property_manager: "",
+        notes: ""
+      }],
+      operations: {
+        sells_taxable_food_or_beverage: true,
+        delivery_platforms: [],
+        catering: false,
+        food_truck_or_mobile: false,
+        commissary_or_central_kitchen: false,
+        expected_employees_first_year: "",
+        payroll_provider: "",
+        insurance_broker: "",
+        bookkeeper_or_cpa: "",
+        attorney: ""
+      },
+      execution: {
+        prepare_ca_sos_llc_1: true,
+        prepare_ca_sos_llc_12: true,
+        prepare_irs_ein: true,
+        prepare_ftb_3522: true,
+        prepare_cdtfa_sellers_permit: true,
+        prepare_city_business_license: true,
+        prepare_health_permit: true,
+        prepare_abc_license_if_alcohol: true,
+        prepare_payroll_if_employees: true,
+        prepare_bank_account_package: true
+      },
+      notes: ""
+    };
+
+    const nav = document.getElementById("stepNav");
+    const sections = Array.from(document.querySelectorAll(".step"));
+    const progressText = document.getElementById("progressText");
+    const progressBar = document.getElementById("progressBar");
+
+    steps.forEach((label, index) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.textContent = `${index + 1}. ${label}`;
+      button.addEventListener("click", () => goToStep(index));
+      nav.appendChild(button);
+    });
+
+    function clone(value) {
+      return JSON.parse(JSON.stringify(value));
+    }
+
+    function getPath(obj, path) {
+      return path.split(".").reduce((acc, part) => acc && acc[part], obj);
+    }
+
+    function setPath(obj, path, value) {
+      const parts = path.split(".");
+      let target = obj;
+      while (parts.length > 1) {
+        const part = parts.shift();
+        target[part] = target[part] || {};
+        target = target[part];
+      }
+      target[parts[0]] = value;
+    }
+
+    function addOwner(owner = {}) {
+      const node = document.getElementById("ownerTemplate").content.firstElementChild.cloneNode(true);
+      fillRepeatNode(node, owner);
+      node.querySelector(".remove-item").addEventListener("click", () => {
+        node.remove();
+        refreshSummary();
+        saveDraftQuietly();
+      });
+      document.getElementById("ownersList").appendChild(node);
+    }
+
+    function addLocation(location = {}) {
+      const node = document.getElementById("locationTemplate").content.firstElementChild.cloneNode(true);
+      fillRepeatNode(node, location);
+      node.querySelector(".remove-item").addEventListener("click", () => {
+        node.remove();
+        refreshSummary();
+        saveDraftQuietly();
+      });
+      document.getElementById("locationsList").appendChild(node);
+    }
+
+    function fillRepeatNode(node, data) {
+      node.querySelectorAll("[data-field]").forEach((input) => {
+        const field = input.dataset.field;
+        if (input.type === "checkbox") {
+          input.checked = Boolean(data[field]);
+        } else if (data[field] !== undefined && data[field] !== null) {
+          input.value = data[field];
+        }
+      });
+    }
+
+    function collectRepeat(selector) {
+      return Array.from(document.querySelectorAll(selector)).map((node) => {
+        const item = {};
+        node.querySelectorAll("[data-field]").forEach((input) => {
+          item[input.dataset.field] = input.type === "checkbox" ? input.checked : String(input.value || "").trim();
+        });
+        return item;
+      });
+    }
+
+    function collectData() {
+      const data = clone(defaultData);
+      document.querySelectorAll("#intakeForm [name]").forEach((input) => {
+        if (input.closest("template")) return;
+        const name = input.name;
+        let value = input.type === "checkbox" ? input.checked : String(input.value || "").trim();
+        if (name === "company.alternate_names" || name === "operations.delivery_platforms") {
+          value = String(value || "").split(",").map((item) => String(item || "").trim()).filter(Boolean);
+        }
+        setPath(data, name, value);
+      });
+      data.owners = collectRepeat(".owner-item");
+      data.locations = collectRepeat(".location-item");
+      return data;
+    }
+
+    function populate(data) {
+      const merged = Object.assign(clone(defaultData), data || {});
+      document.querySelectorAll("#intakeForm [name]").forEach((input) => {
+        const value = getPath(merged, input.name);
+        if (value === undefined || value === null) return;
+        if (input.type === "checkbox") {
+          input.checked = Boolean(value);
+        } else if (Array.isArray(value)) {
+          input.value = value.join(", ");
+        } else {
+          input.value = value;
+        }
+      });
+      document.getElementById("ownersList").innerHTML = "";
+      (merged.owners && merged.owners.length ? merged.owners : defaultData.owners).forEach(addOwner);
+      document.getElementById("locationsList").innerHTML = "";
+      (merged.locations && merged.locations.length ? merged.locations : defaultData.locations).forEach(addLocation);
+      refreshSummary();
+    }
+
+    function missingItems(data) {
+      const missing = [];
+      [
+        ["company.legal_name", data.company.legal_name],
+        ["company.principal_office_address", data.company.principal_office_address],
+        ["company.registered_agent_name", data.company.registered_agent_name],
+        ["company.registered_agent_address", data.company.registered_agent_address],
+        ["brand.public_brand_name", data.brand.public_brand_name]
+      ].forEach(([label, value]) => {
+        if (!String(value || "").trim()) missing.push(label);
+      });
+      data.owners.forEach((owner, index) => {
+        ["name", "ownership_percent", "capital_contribution_cash"].forEach((field) => {
+          if (!String(owner[field] || "").trim()) missing.push(`owners[${index}].${field}`);
+        });
+      });
+      data.locations.forEach((location, index) => {
+        ["city", "county"].forEach((field) => {
+          if (!String(location[field] || "").trim()) missing.push(`locations[${index}].${field}`);
+        });
+      });
+      return missing;
+    }
+
+    function refreshSummary() {
+      const data = collectData();
+      const missing = missingItems(data);
+      const summaryBox = document.getElementById("summaryBox");
+      const missingBox = document.getElementById("missingBox");
+      if (!summaryBox || !missingBox) return;
+      missingBox.textContent = missing.length ? `Missing recommended fields: ${missing.join(", ")}` : "Recommended fields look complete.";
+      summaryBox.innerHTML = "";
+      [
+        ["Company", data.company.legal_name || "TBD"],
+        ["Brand", data.brand.public_brand_name || "TBD"],
+        ["Owners", String(data.owners.length)],
+        ["Locations", String(data.locations.length)],
+        ["Alcohol", data.locations.some((location) => location.serves_alcohol) ? "Yes" : "No"],
+        ["Employees", data.locations.some((location) => location.has_employees) ? "Yes" : "No"]
+      ].forEach(([label, value]) => {
+        const div = document.createElement("div");
+        div.innerHTML = `<strong>${label}:</strong> ${escapeHtml(value)}`;
+        summaryBox.appendChild(div);
+      });
+    }
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, (char) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        "\"": "&quot;",
+        "'": "&#039;"
+      }[char]));
+    }
+
+    function goToStep(index) {
+      currentStep = Math.max(0, Math.min(steps.length - 1, index));
+      sections.forEach((section, sectionIndex) => section.classList.toggle("active", sectionIndex === currentStep));
+      Array.from(nav.children).forEach((button, buttonIndex) => {
+        if (buttonIndex === currentStep) {
+          button.setAttribute("aria-current", "step");
+        } else {
+          button.removeAttribute("aria-current");
+        }
+      });
+      progressText.textContent = `Step ${currentStep + 1} of ${steps.length}`;
+      progressBar.style.width = `${((currentStep + 1) / steps.length) * 100}%`;
+      document.getElementById("prevStep").disabled = currentStep === 0;
+      document.getElementById("nextStep").textContent = currentStep === steps.length - 1 ? "Review" : "Next";
+      refreshSummary();
+    }
+
+    function saveDraftQuietly() {
+      try {
+        localStorage.setItem(storageKey, JSON.stringify(collectData()));
+      } catch (error) {
+        return false;
+      }
+      return true;
+    }
+
+    function downloadJson() {
+      const data = collectData();
+      const legal = data.company.legal_name || "pilot-company";
+      const slug = legal.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "pilot-company";
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `${slug}-intake.json`;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+      saveDraftQuietly();
+    }
+
+    document.getElementById("addOwner").addEventListener("click", () => {
+      addOwner(clone(defaultData.owners[0]));
+      saveDraftQuietly();
+    });
+
+    document.getElementById("addLocation").addEventListener("click", () => {
+      addLocation(clone(defaultData.locations[0]));
+      saveDraftQuietly();
+    });
+
+    document.getElementById("prevStep").addEventListener("click", () => goToStep(currentStep - 1));
+    document.getElementById("nextStep").addEventListener("click", () => goToStep(currentStep + 1));
+    document.getElementById("saveDraft").addEventListener("click", () => {
+      saveDraftQuietly();
+      refreshSummary();
+    });
+    document.getElementById("exportJson").addEventListener("click", downloadJson);
+    document.getElementById("copyJson").addEventListener("click", async () => {
+      const text = JSON.stringify(collectData(), null, 2);
+      await navigator.clipboard.writeText(text);
+    });
+    document.getElementById("clearDraft").addEventListener("click", () => {
+      try {
+        localStorage.removeItem(storageKey);
+      } catch (error) {
+        // Draft storage may be unavailable in some restricted browser modes.
+      }
+      populate(clone(defaultData));
+      goToStep(0);
+    });
+    document.getElementById("importJson").addEventListener("change", async (event) => {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      const text = await file.text();
+      populate(JSON.parse(text));
+      saveDraftQuietly();
+      goToStep(6);
+    });
+    document.getElementById("intakeForm").addEventListener("input", () => {
+      refreshSummary();
+      saveDraftQuietly();
+    });
+
+    let saved = null;
+    try {
+      saved = localStorage.getItem(storageKey);
+    } catch (error) {
+      saved = null;
+    }
+    populate(saved ? JSON.parse(saved) : clone(defaultData));
+    goToStep(0);
+  </script>
+</body>
+</html>

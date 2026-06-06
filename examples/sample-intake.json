@@ -1,0 +1,80 @@
+{
+  "company": {
+    "legal_name": "Sample Boba Cafe LLC",
+    "alternate_names": ["Sample Tea Cafe LLC", "Sample Drinks LLC"],
+    "state": "California",
+    "entity_type": "LLC",
+    "management": "manager-managed",
+    "business_purpose": "Restaurant and food service operations",
+    "principal_office_address": "123 Sample Street, Sacramento, CA 95814",
+    "mailing_address": "123 Sample Street, Sacramento, CA 95814",
+    "registered_agent_name": "Sample Registered Agent",
+    "registered_agent_address": "456 Agent Avenue, Sacramento, CA 95814",
+    "desired_effective_date": "ASAP",
+    "tax_classification_preference": "Default classification; CPA to confirm"
+  },
+  "brand": {
+    "public_brand_name": "Sample Boba Cafe",
+    "needs_dba": "unknown",
+    "website": "",
+    "trademarks_or_ip_notes": "Confirm brand ownership and trademark strategy before expansion."
+  },
+  "owners": [
+    {
+      "name": "Sample Holdings Inc.",
+      "role": "sole member",
+      "email": "",
+      "phone": "",
+      "address": "789 Owner Road, Sacramento, CA 95814",
+      "ownership_percent": "100%",
+      "capital_contribution_cash": "$10,000",
+      "capital_contribution_non_cash": "",
+      "manager_or_authorized_signer": true
+    }
+  ],
+  "locations": [
+    {
+      "store_name": "Sample Boba Cafe - Downtown",
+      "address": "100 Example Plaza Suite 10",
+      "city": "Sacramento",
+      "county": "Sacramento",
+      "opening_target_date": "TBD",
+      "serves_alcohol": false,
+      "has_employees": true,
+      "landlord_or_property_manager": "",
+      "notes": "Confirm city business license and county health permit requirements."
+    }
+  ],
+  "operations": {
+    "sells_taxable_food_or_beverage": true,
+    "delivery_platforms": ["DoorDash", "Uber Eats"],
+    "catering": false,
+    "food_truck_or_mobile": false,
+    "commissary_or_central_kitchen": false,
+    "expected_employees_first_year": "8",
+    "payroll_provider": "",
+    "insurance_broker": "",
+    "bookkeeper_or_cpa": "",
+    "attorney": ""
+  },
+  "execution": {
+    "prepare_ca_sos_llc_1": true,
+    "prepare_ca_sos_llc_12": true,
+    "prepare_irs_ein": true,
+    "prepare_ftb_3522": true,
+    "prepare_cdtfa_sellers_permit": true,
+    "prepare_city_business_license": true,
+    "prepare_health_permit": true,
+    "prepare_abc_license_if_alcohol": false,
+    "prepare_payroll_if_employees": true,
+    "prepare_bank_account_package": true
+  },
+  "filing_roles": {
+    "organizer_filer_name": "Sample Organizer",
+    "manager_authorized_signer_name": "Sample Manager",
+    "ein_responsible_party_name": "Responsible party entered directly by authorized user",
+    "authority_confirmation": "TBD",
+    "registered_agent_consent": "TBD"
+  },
+  "notes": "Sanitized example for public repository testing."
+}
