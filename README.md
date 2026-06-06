@@ -31,6 +31,21 @@ python3 scripts/generate_package.py --generate examples/sample-intake.json --out
 
 ## Install as an Agent Skill
 
+One-line install from GitHub:
+
+```bash
+git clone https://github.com/umeteagroup/form-restaurant-llc.git /tmp/form-restaurant-llc && /tmp/form-restaurant-llc/setup all
+```
+
+Install for one host:
+
+```bash
+git clone https://github.com/umeteagroup/form-restaurant-llc.git /tmp/form-restaurant-llc && /tmp/form-restaurant-llc/setup codex
+git clone https://github.com/umeteagroup/form-restaurant-llc.git /tmp/form-restaurant-llc && /tmp/form-restaurant-llc/setup claude
+git clone https://github.com/umeteagroup/form-restaurant-llc.git /tmp/form-restaurant-llc && /tmp/form-restaurant-llc/setup openclaw
+git clone https://github.com/umeteagroup/form-restaurant-llc.git /tmp/form-restaurant-llc && /tmp/form-restaurant-llc/setup hermes
+```
+
 Run the lightweight setup script:
 
 ```bash
